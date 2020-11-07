@@ -99,7 +99,11 @@ html, body {
 
 #mid input, select {
     margin-left: 8px;
-    padding: 12px;
+    padding: 8px;
+}
+
+#delete-input {
+    width: 50px;
 }
 
 

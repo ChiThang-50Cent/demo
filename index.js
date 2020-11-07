@@ -1,7 +1,18 @@
-let dailyMoney = [];
-let num = 1;
-let moneyIn = 0;
-let moneyOut = 0;
+let dailyMoney = [
+    {num: 1, day: "Sat Nov 07 2020", tag: "Income", describe: "Đi dạy thêm", values: "1000000"},
+    {num: 2, day: "Sat Nov 07 2020", tag: "Chi Thiết Yếu", describe: "Ăn trưa", values: "20000"},
+    {num: 3, day: "Sat Nov 07 2020", tag: "Chi Thiết Yếu", describe: "Ăn Tối", values: "30000"},
+    {num: 4, day: "Sat Nov 07 2020", tag: "Chi Cá Nhân", describe: "Mua laptop", values: "7700000"},
+    {num: 5, day: "Sat Nov 07 2020", tag: "Chi Tài Chính", describe: "Đầu tư Bitch coin", values: "2000000"}
+];
+
+let money = [1000000, 9750000];
+
+function showMoney() {
+    document.getElementById('money-in').textContent = moneyWithDot(money[0]);
+    document.getElementById('money-out').textContent = moneyWithDot(money[1]);
+    document.getElementById('available-budget').textContent = moneyWithDot(money[0] - money[1]);
+}
 
 function getInput() {
     document.getElementById('get-btn').addEventListener('click', function() {
@@ -13,66 +24,109 @@ function getInput() {
         let values = document.getElementById('value').value;
         
         let obj = {};
-        obj.num = num;
+        obj.num = dailyMoney.length + 1;
         obj.day = day;
         obj.tag = tag;
         obj.describe = describe;
         obj.values = values;
-        
+
         dailyMoney.push(obj);
 
         if (tag == 'Income') {
-            moneyIn = Number(moneyIn) + Number(values);
+            money[0] = Number(money[0]) + Number(values);
         } else {
-            moneyOut = Number(moneyOut) + Number(values);
+            money[1] = Number(money[1]) + Number(values);
         }
         
-        pushDataOnTable(num);
+        pushDataOnTable(dailyMoney.length);
+        showMoney();
 
         document.getElementById('describe').value = '';
         document.getElementById('value').value = '';
 
-        num++;
     });
 }
 
-function moneyWithDot(num) {
-    num = String(num);
+function moneyWithDot(number) {
+    number = String(number);
 
-    let position = num.length - 3;
+    let position = number.length - 3;
     let out;
     for (; position > 0; position -= 3) {
-    num = [num.slice(0, position), '.', num.slice(position)].join('');
+    number = [number.slice(0, position), '.', number.slice(position)].join('');
     }
 
-    return num;
+    return number;
 }
 
-function pushDataOnTable(num, tag) {
+function pushDataOnTable(num) {
 
     let row = document.createElement('tr');
     
     for ( x in dailyMoney[num-1] ) {
-        if (tag == 'All Tag') {
-            
-        }
-        node = document.createElement('td');
-        textNode = document.createTextNode(dailyMoney[num-1][x]);
+        let node = document.createElement('td');
+        let textNode = document.createTextNode(dailyMoney[num-1][x]);
         node.appendChild(textNode);
         row.appendChild(node)
 
         document.getElementById('table-body').appendChild(row);
     }
 
-    document.getElementById('money-in').textContent = moneyWithDot(moneyIn);
-    document.getElementById('money-out').textContent = moneyWithDot(moneyOut);
-    document.getElementById('available-budget').textContent = moneyWithDot(moneyIn - moneyOut);
-
 }
 
-function sortByValue() {
-    let tag = document.getElementById('tag-table').value;
-    pushDataOnTable();
+function pushDataByTag(tag) {
+
+    if (tag == 'All Tag') {
+        for ( let i = 0; i < dailyMoney.length; i++ ) {
+
+            let row = document.createElement('tr');
+
+            for( let x in dailyMoney[i]) {
+                let node = document.createElement('td');
+                let textNode = document.createTextNode(dailyMoney[i][x]);
+                node.appendChild(textNode);
+                row.appendChild(node)
+    
+                document.getElementById('table-body').appendChild(row);
+            }           
+        }
+    } else {
+        for ( let i = 0; i < dailyMoney.length; i++ ) {
+
+            let row = document.createElement('tr');
+
+            if (dailyMoney[i].tag == tag) {
+                
+                for( let x in dailyMoney[i]) {
+                    let node = document.createElement('td');
+                    let textNode = document.createTextNode(dailyMoney[i][x]);
+                    node.appendChild(textNode);
+                    row.appendChild(node)
+
+                    document.getElementById('table-body').appendChild(row);    
+                }
+            }
+        }
+    }
 }
 
+function deleteTable() {
+    let tableBody = document.getElementById('table-body');
+    while(tableBody.hasChildNodes()) {
+        tableBody.removeChild(tableBody.firstChild);
+    }
+}
+
+function sortByTag() {
+    document.getElementById('tag-table').addEventListener('change', function () {
+        let tag = document.getElementById('tag-table').value;
+        deleteTable();
+        pushDataByTag(tag);
+    });
+}
+
+
+pushDataByTag('All Tag');
+showMoney();
 getInput();
+sortByTag();
