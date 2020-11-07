@@ -72,6 +72,7 @@ function pushDataOnTable(num) {
         document.getElementById('table-body').appendChild(row);
     }
 
+    showMoney();
 }
 
 function pushDataByTag(tag) {
@@ -108,6 +109,8 @@ function pushDataByTag(tag) {
             }
         }
     }
+
+    showMoney();
 }
 
 function deleteTable() {
@@ -125,8 +128,32 @@ function sortByTag() {
     });
 }
 
+function deleteNode() {
+    document.getElementById('delete-node').addEventListener('click', function () {
+        let stt = document.getElementById('delete-input').value -1 ;
+
+        if (dailyMoney[stt].tag == 'Income') {
+            money[0] -= dailyMoney[stt].values;
+        } else {
+            money[1] -= dailyMoney[stt].values;
+        }
+        
+        dailyMoney.splice(stt, 1);
+        deleteTable();
+        document.getElementById('delete-input').value='';
+        setNum();
+        pushDataByTag('All Tag');
+    });
+}
+
+function setNum() {
+    for (let i = 0; i < dailyMoney.length; i++ ) {
+        dailyMoney[i].num = Number(i)+1;
+    }
+}
 
 pushDataByTag('All Tag');
 showMoney();
 getInput();
 sortByTag();
+deleteNode();
