@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>4fun</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div id="top">
+            <div id="user-inform" class="column">
+                <div class="center">
+                    <img src="image\3V7A0428.jpg" alt="">
+                </div>
+                <div id="inform">
+                    <div class="center">Name: Chí Thắng</div>
+                    <div class="center">ID: 13022002</div>
+                </div>
+            </div>
+            <div id="user-budget" class="column">
+                <div id="budget-title" class="center">
+                    <h2>Personal Finance</h2>
+                </div>
+                <div class="column" id="budget">
+                    <h3>Tổng Quan</h3>
+                    <div> 
+                        <div id="in">
+                            <div class="inline-2">Tiền vào: </div>
+                            <div id="money-in" class="right">0</div>
+                        </div>
+                        <div id="out">
+                            <div class="inline-2">Tiền ra: </div>
+                            <div id="money-out" class="right" style="border-bottom: 2px solid #fff ;">0</div>
+                        </div>
+                        <div id="available">
+                            <div class="inline-2">Còn: </div>
+                            <div id="available-budget" class="right">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="money-planing">
+            <div>
+                <div class="inline">
+                    <div class="width-50">Thiết yếu: </div>
+                    <div class="width-50 right">1.000.000</div>                  
+                </div>
+                <div class="inline">
+                    <div class="width-50">Cá nhân: </div>
+                    <div class="width-50 right">600.000</div>
+                </div>
+                <div class="inline"> 
+                    <div class="width-50">Tài chính: </div>
+                    <div class="width-50 right">400.000</div>
+                </div>
+            </div>
+        </div> -->
+        <div id="mid">
+            <select name="Tag" id="tag">
+                <option value="Income">Income</option>
+                <option value="Chi Thiết Yếu">Chi Thiết Yếu</option>
+                <option value="Chi Cá Nhân">Chi Cá Nhân</option>
+                <option value="Chi Tài Chính">Chi Tài Chính</option>
+            </select>
+            <input type="text" id="describe" placeholder="Mô tả">
+            <input type="number" id="value" placeholder="Giá trị">
+            <button id="get-btn">Get</button>
+        </div>
+        <div id="bot">
+            <div id="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th >STT</th>
+                            <th>Ngày</th>
+                            <th style="width: 30%;">
+                                <select id="tag-table">
+                                    <option value="All Tag">All Tag</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Chi Thiết Yếu">Chi Thiết Yếu</option>
+                                    <option value="Chi Cá Nhân">Chi Cá Nhân</option>
+                                    <option value="Chi Tài Chính">Chi Tài Chính</option>
+                                </select>
+                            </th>
+                            <th>Mô tả</th>
+                            <th>Giá trị</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+    <script src="index.js"></script>
+</html>
